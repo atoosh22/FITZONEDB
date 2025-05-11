@@ -1,21 +1,18 @@
-const Members = require('../models/members.model');
+const hotelbooking = require('../models/hotelbooking.model');
 const route = require('express').Router();
 
 // Insertion code
 route.post('/', async (req, res) => {
     try {
-        const newMember = new Members({
-            fullName: req.body.fullName,
-            phone: req.body.phone,
-            address: req.body.address,
-            shift: req.body.shift,
-            date: req.body.date,
-            gender: req.body.gender,
-            paid: req.body.paid
+        const newBooking = new hotelbooking({
+            roomName: req.body.fullName,
+            floorfloor: req.body.phone,
+            status: req.body.address,
+            building: req.body.shift,
         });
 
-        const saveMember = await newMember.save();
-        res.status(201).json({ message: "New Member Has Been Saved", data: saveMember });
+        const savebooking = await newBooking.save();
+        res.status(201).json({ message: "New HotelBooking Has Been Saved", data: savebooking });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Waxaa jira khalad" });
@@ -28,7 +25,7 @@ route.post('/', async (req, res) => {
 // Update code
 route.put('/:id', async (req, res) => {
     try {
-        const updateMember = await Members.findByIdAndUpdate(
+        const updateBooking = await Members.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -37,7 +34,7 @@ route.put('/:id', async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Updated",
-            updateDate: updateMember
+            updateDate: updateBooking
         });
     } catch (error) {
         console.log(error.message);

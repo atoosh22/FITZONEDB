@@ -2,24 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const memberRoute = require('./Routes/membersRoute');
 
-const App = express();
-App.use(express.json());
+const hotelRoute = require('./Routes/hotelRoute')
 
-App.use('/members', memberRoute);
+const app = express();
+app.use(express.json());
+
+app.use('/members', memberRoute);
+app.use('/hotel', hotelRoute);
 
 mongoose.connect('mongodb://localhost:27017/FitzoneDb')
     .then(() => {
         console.log("Database connection successful:", mongoose.connection.name);
-
-        App.listen(3000, () => {
+        app.listen(3000, () => {
             console.log("Server is running at http://localhost:3000");
         });
-
-    }).catch((err) => {
+    })
+    .catch((err) => {
         console.error("Database connection error:", err.message);
         console.log("Please troubleshoot the connection.");
     });
 
-App.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send("This is the home page");
 });

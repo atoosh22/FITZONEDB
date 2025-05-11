@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
 
 const memberSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     fullName: {
         type: String,
         required: [true, "Enter Full Name"]
     },
     phone: {
-        type: Number,
+        type: String,
         required: [true, "Enter Phone Number"]
     },
     address: {
@@ -23,8 +19,8 @@ const memberSchema = new mongoose.Schema({
         enum: ['Morning', 'Afternoon', 'Evening']
     },
     date: {
-        type: Date,
-        required: true
+        type: Date,  // Change this line
+        
     },
     gender: {
         type: String,
@@ -37,5 +33,5 @@ const memberSchema = new mongoose.Schema({
     }
 });
 
-const member = mongoose.model('members', memberSchema);
-module.exports = member;
+const Member = mongoose.model('Member', memberSchema); 
+module.exports = Member;
