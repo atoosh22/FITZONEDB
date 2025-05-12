@@ -1,18 +1,21 @@
-const hotelbooking = require('../models/hotelbooking.model');
+const Members = require('../models/users.model');
 const route = require('express').Router();
 
 // Insertion code
 route.post('/', async (req, res) => {
     try {
-        const newBooking = new hotelbooking({
-            roomName: req.body.fullName,
-            floorfloor: req.body.phone,
-            status: req.body.address,
-            building: req.body.shift,
+        const newuser = new users({
+            fullName: req.body.fullName,
+            phone: req.body.phone,
+            address: req.body.address,
+            shift: req.body.shift,
+            date: req.body.date,
+            gender: req.body.gender,
+            paid: req.body.paid
         });
 
-        const savebooking = await newBooking.save();
-        res.status(201).json({ message: "New HotelBooking Has Been Saved", data: savebooking });
+        const saveuser = await newuser.save();
+        res.status(201).json({ message: "New user Has Been Saved", data: saveuser });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Waxaa jira khalad" });
@@ -25,7 +28,7 @@ route.post('/', async (req, res) => {
 // Update code
 route.put('/:id', async (req, res) => {
     try {
-        const updateBooking = await Members.findByIdAndUpdate(
+        const updateUser = await users.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -34,7 +37,7 @@ route.put('/:id', async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Updated",
-            updateDate: updateBooking
+            updateDate: updateUser
         });
     } catch (error) {
         console.log(error.message);
@@ -47,7 +50,7 @@ route.put('/:id', async (req, res) => {
 
 route.delete('/:id', async (req, res) => {
     try {
-        const deleteBooking = await Members.findByIdAndDelete(
+        const deleteUser = await users.findByIdAndDelete(
             req.params.id,
         
         );
@@ -55,7 +58,7 @@ route.delete('/:id', async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Deleted",
-            deleteDate: deleteBooking
+            deleteDate: deleteUser
         });
     } catch (error) {
         console.log(error.message);
