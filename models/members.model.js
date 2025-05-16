@@ -19,7 +19,8 @@ const memberSchema = new mongoose.Schema({
         enum: ['Morning', 'Afternoon', 'Evening']
     },
     date: {
-        type: Date,  // Change this line
+        type: Date,  
+         required:true
         
     },
     gender: {
@@ -33,5 +34,5 @@ const memberSchema = new mongoose.Schema({
     }
 });
 
-const Member = mongoose.model('Member', memberSchema); 
+const Member = mongoose.model('members', memberSchema); 
 module.exports = Member;

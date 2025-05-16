@@ -1,38 +1,36 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    fullName: {
+    name: {
         type: String,
         required: [true, "Enter Full Name"]
     },
     phone: {
-        type: String,
+        type: Number,
         required: [true, "Enter Phone Number"]
     },
-    address: {
+    email: {
         type: String,
-        required: [true, "Enter Location"]
+        required: [true, "Enter Email"]
     },
-    shift: {
+    password: {
         type: String,
-        required: [true, "Enter Building Name"],
-        enum: ['Morning', 'Afternoon', 'Evening']
+        required: [true, "Enter Password"],
+       
     },
-    date: {
-        type: Date,  
-        require:true,
-        
+
+    username: {
+        type: String,
+        required: [true, "Enter User name"],
+       
     },
+
     gender: {
         type: String,
-        require:true,
+        required:true,
         enum: ['Male', 'Female']
     },
-    paid: {
-        type: String,
-        required: true,
-        enum: ['One Month', 'Two Months', 'Three Months'] 
-    }
+  
 });
 
 const user = mongoose.model('users', userSchema); 

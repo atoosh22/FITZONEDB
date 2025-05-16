@@ -1,31 +1,31 @@
-const hotelbooking = require('../models/hotelbooking.model');
-const route = require('express').Router();
-
 // Insertion code
-route.post('/', async (req, res) => {
+const createmember= async (req, res) => {
     try {
-        const newBooking = new hotelbooking({
-            roomName: req.body.fullName,
-            floorfloor: req.body.phone,
-            status: req.body.address,
-            building: req.body.shift,
+        const newMember = new Members({
+            fullName: req.body.fullName,
+            phone: req.body.phone,
+            address: req.body.address,
+            shift: req.body.shift,
+            date: req.body.date,
+            gender: req.body.gender,
+            paid: req.body.paid
         });
 
-        const savebooking = await newBooking.save();
-        res.status(201).json({ message: "New HotelBooking Has Been Saved", data: savebooking });
+        const saveMember = await newMember.save();
+        res.status(201).json({ message: "New Member Has Been Saved", data: saveMember });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Waxaa jira khalad" });
     }
-});
+};
 
 
 
 
 // Update code
-route.put('/:id', async (req, res) => {
+const updateMember= async (req, res) => {
     try {
-        const updateBooking = await Members.findByIdAndUpdate(
+        const updateMember = await Members.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -34,20 +34,20 @@ route.put('/:id', async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Updated",
-            updateDate: updateBooking
+            updateDate: updateMember
         });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Lama Update Garayn Xogtaan" });
     }
-});
+};
 
 
 //Delele code
 
-route.delete('/:id', async (req, res) => {
+const deleteMember= async (req, res) => {
     try {
-        const deleteBooking = await Members.findByIdAndDelete(
+        const deleteMember = await Members.findByIdAndDelete(
             req.params.id,
         
         );
@@ -55,22 +55,21 @@ route.delete('/:id', async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Deleted",
-            deleteDate: deleteBooking
+            deleteDate: deleteMember
         });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Lama Delete Garayn Xogtaan" });
     }
-});
+};
+
+module.exports={
+    createmember,
+    updateMember,
+    deleteMember
+
+}
 
 
 
 
-
-
-
-module.exports = route;
-
-
-
-  

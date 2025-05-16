@@ -1,17 +1,17 @@
-const Members = require('../models/users.model');
+const users = require('../models/users.model');
 const route = require('express').Router();
 
 // Insertion code
 route.post('/', async (req, res) => {
     try {
         const newuser = new users({
-            fullName: req.body.fullName,
+            name: req.body.fullName,
             phone: req.body.phone,
-            address: req.body.address,
-            shift: req.body.shift,
-            date: req.body.date,
-            gender: req.body.gender,
-            paid: req.body.paid
+            email: req.body.email,
+            password: req.body.password,
+            username: req.body.userName,
+            gender: req.body.gender
+           
         });
 
         const saveuser = await newuser.save();
