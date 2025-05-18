@@ -1,21 +1,21 @@
-const Members = require('../models/members.model');
+const Members = require('../models/users.model');
 
 
 // Insertion code
-const createmember= async (req, res) => {
+const createuser= async (req, res) => {
     try {
-        const newMember = new Members({
-            fullName: req.body.fullName,
+        const newUser = new users({
+            name: req.body.name,
             phone: req.body.phone,
-            address: req.body.address,
-            shift: req.body.shift,
-            date: req.body.date,
-            gender: req.body.gender,
-            paid: req.body.paid
+            email: req.body.email,
+            password: req.body.password,
+            username: req.body.username,
+            gender: req.body.gender
+           
         });
 
-        const saveMember = await newMember.save();
-        res.status(201).json({ message: "New Member Has Been Saved", data: saveMember });
+        const saveUser = await newUser.save();
+        res.status(201).json({ message: "New User Has Been Saved", data: saveUser });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Waxaa jira khalad" });
@@ -26,9 +26,9 @@ const createmember= async (req, res) => {
 
 
 // Update code
-const updateMember= async (req, res) => {
+const updateUser= async (req, res) => {
     try {
-        const updateMember = await Members.findByIdAndUpdate(
+        const updateUser = await users.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -37,7 +37,7 @@ const updateMember= async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Updated",
-            updateDate: updateMember
+            updateUser: updateUser
         });
     } catch (error) {
         console.log(error.message);
@@ -48,9 +48,9 @@ const updateMember= async (req, res) => {
 
 //Delele code
 
-const deleteMember= async (req, res) => {
+const deleteUser= async (req, res) => {
     try {
-        const deleteMember = await Members.findByIdAndDelete(
+        const deleteUser = await users.findByIdAndDelete(
             req.params.id,
         
         );
@@ -58,7 +58,7 @@ const deleteMember= async (req, res) => {
         res.json({
             status: true,
             message: "New information Has Been Deleted",
-            deleteDate: deleteMember
+            deleteDate: deleteUser
         });
     } catch (error) {
         console.log(error.message);
@@ -67,9 +67,9 @@ const deleteMember= async (req, res) => {
 };
 
 module.exports={
-    createmember,
-    updateMember,
-    deleteMember
+    createuser,
+    updateUser,
+    deleteUser
 
 }
 
