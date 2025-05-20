@@ -8,21 +8,32 @@ const createuser = async (req, res) => {
         res.status(201).json({ message: "New User Has Been Saved", data: savedUser });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Waxaa jira khalad" });
+        res.status(500).json({ message: "Unable to retrieve this data" });
     }
 };
 
 // Get user by ID
 const getUserById = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id); // Magaca saxda ah ee model-ka
+        const user = await User.findById(req.params.id); 
         if (!user) {
-            return res.status(404).json({ message: "User Not Found" }); // Magaca saxda ah "User"
+            return res.status(404).json({ message: "User Not Found" }); 
         }
-        res.json({ status: true, data: user }); // Magaca saxda ah "user"
+        res.json({ status: true, data: user }); 
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: "Lama Helin Xogta User-ka" }); // Magaca saxda ah "User"
+        res.status(500).json({ message: "Lama Helin Xogta User-ka" }); 
+    }
+};
+
+// Get all users
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json({ status: true, data: users });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Unable to retrieve users data" });
     }
 };
 
@@ -60,5 +71,6 @@ module.exports = {
     createuser,
     updateUser,
     deleteUser,
-    getUserById
+    getUserById,
+    getAllUsers
 };

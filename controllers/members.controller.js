@@ -62,10 +62,21 @@ const getMemberById = async (req, res) => {
         res.status(500).json({ message: "Lama Helin Xogta Xubnaha" });
     }
 };
+//Get All Members
+const getAllMembers = async (req, res) => {
+    try {
+        const member = await Members.find();
+        res.json({ status: true, data: member });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Unable to retrieve users data" });
+    }
+};
 
 module.exports = {
     createmember,
     updateMember,
     deleteMember,
-    getMemberById
+    getMemberById,
+    getAllMembers
 };
