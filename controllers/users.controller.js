@@ -12,6 +12,20 @@ const createuser = async (req, res) => {
     }
 };
 
+// Get user by ID
+const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id); // Magaca saxda ah ee model-ka
+        if (!user) {
+            return res.status(404).json({ message: "User Not Found" }); // Magaca saxda ah "User"
+        }
+        res.json({ status: true, data: user }); // Magaca saxda ah "user"
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Lama Helin Xogta User-ka" }); // Magaca saxda ah "User"
+    }
+};
+
 // Update user
 const updateUser = async (req, res) => {
     try {
@@ -45,5 +59,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
     createuser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 };

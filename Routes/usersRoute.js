@@ -3,7 +3,8 @@ const router = express.Router();
 const {
     createuser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 } = require('../controllers/users.controller');
 
 // Endpoint to get total members count
@@ -18,6 +19,8 @@ router.get('/count', async (req, res) => {
 
 // Register new user
 router.post('/', createuser);
+// Get member by ID
+router.get('/:id', getUserById);
 // Update user
 router.put('/:id', updateUser);
 // Delete user
