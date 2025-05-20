@@ -1,16 +1,15 @@
-const users = require('../models/users.model');
-const route = require('express').Router();
-
+const express = require('express');
+const router = express.Router();
 const {
-  createuser,
-  updateUser,
-  deleteUser
+    createuser,
+    updateUser,
+    deleteUser
 } = require('../controllers/users.controller');
 
 // Endpoint to get total members count
-route.get('/count', async (req, res) => {
+router.get('/count', async (req, res) => {
     try {
-        const count = await users.countDocuments();
+        const count = await User.countDocuments();
         res.json({ total: count });
     } catch (err) {
         res.status(500).json({ message: 'Error getting members count' });
@@ -18,13 +17,10 @@ route.get('/count', async (req, res) => {
 });
 
 // Register new user
-route.post('/', createuser);
+router.post('/', createuser);
 // Update user
-route.put('/:id', updateUser);
+router.put('/:id', updateUser);
 // Delete user
-route.delete('/:id', deleteUser);
+router.delete('/:id', deleteUser);
 
-module.exports = route;
-
-
-
+module.exports = router;

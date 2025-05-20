@@ -16,22 +16,17 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Enter Password"],
-       
     },
-
     username: {
         type: String,
         required: [true, "Enter User name"],
-       
     },
-
     gender: {
         type: String,
-        required:true,
+        required: true,
         enum: ['Male', 'Female']
     },
-  
 });
 
-const user = mongoose.model('users', userSchema); 
-module.exports = user;
+const User = mongoose.model('User', userSchema); 
+module.exports = User;

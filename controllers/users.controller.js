@@ -1,43 +1,25 @@
-const Members = require('../models/users.model');
+const User = require('../models/users.model');
 
-
-// Insertion code
-const createuser= async (req, res) => {
+// Create user
+const createuser = async (req, res) => {
     try {
-        const newUser = new users({
-            name: req.body.name,
-            phone: req.body.phone,
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
-            gender: req.body.gender
-           
-        });
-
-        const saveUser = await newUser.save();
-        res.status(201).json({ message: "New User Has Been Saved", data: saveUser });
+        const newUser = new User(req.body);
+        const savedUser = await newUser.save();
+        res.status(201).json({ message: "New User Has Been Saved", data: savedUser });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Waxaa jira khalad" });
     }
 };
 
-
-
-
-// Update code
-const updateUser= async (req, res) => {
+// Update user
+const updateUser = async (req, res) => {
     try {
-        const updateUser = await users.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json({
             status: true,
             message: "New information Has Been Updated",
-            updateUser: updateUser
+            updatedUser: updatedUser
         });
     } catch (error) {
         console.log(error.message);
@@ -45,20 +27,14 @@ const updateUser= async (req, res) => {
     }
 };
 
-
-//Delele code
-
-const deleteUser= async (req, res) => {
+// Delete user
+const deleteUser = async (req, res) => {
     try {
-        const deleteUser = await users.findByIdAndDelete(
-            req.params.id,
-        
-        );
-
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
         res.json({
             status: true,
             message: "New information Has Been Deleted",
-            deleteDate: deleteUser
+            deletedUser: deletedUser
         });
     } catch (error) {
         console.log(error.message);
@@ -66,13 +42,8 @@ const deleteUser= async (req, res) => {
     }
 };
 
-module.exports={
+module.exports = {
     createuser,
     updateUser,
     deleteUser
-
-}
-
-
-
-
+};

@@ -1,17 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const memberRoute = require('./Routes/membersRoute');
-
-const usersRoute=require('./Routes/usersRoute')
-
-
+const usersRoute = require('./Routes/usersRoute');
 
 const app = express();
 app.use(express.json());
 
 app.use('/members', memberRoute);
-
 app.use('/users', usersRoute);
 
 mongoose.connect('mongodb://localhost:27017/FitzoneDb')
