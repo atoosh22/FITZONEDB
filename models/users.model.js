@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Joi = require('joi');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -6,7 +7,7 @@ const userSchema = new mongoose.Schema({
         required: [true, "Enter Full Name"]
     },
     phone: {
-        type: Number,
+        type: String, 
         required: [true, "Enter Phone Number"]
     },
     email: {
@@ -19,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: [true, "Enter User name"],
+        required: [true, "Enter User Name"],
     },
     gender: {
         type: String,
@@ -28,5 +29,22 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+// Validation function
+function userValidation(user) {
+    const userValidate = Joi.object({
+        name: Joi.string().required().messages({"any.required": "Please fill in this field"}),
+           phone: Joi.string().pattern(/^\+252[0-9]{9}$/).required().messages({
+            "any.required": "Phone number is required",
+            "string.pattern.base": "Phone number must be in the format +252XXXXXXXXX"
+        }),
+        email: Joi.string().email().required().messages({"any.required": "Enter Email"}),
+        password: Joi.string().required().messages({"any.required": "Enter Password"}),
+        username: Joi.string().required().messages({"any.required": "Enter User Name"}),
+        gender: Joi.string().valid('Male', 'Female').required().messages({"any.required": "Gender is required"}),
+    });
+    return userValidate.validate(user);
+}
+
 const User = mongoose.model('User', userSchema); 
-module.exports = User;
+exports.User = User;
+exports.userValidation = userValidation;

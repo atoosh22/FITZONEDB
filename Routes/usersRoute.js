@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createuser,
+    createUser,
     updateUser,
     deleteUser,
     getUserById,
@@ -19,9 +19,10 @@ router.get('/count', async (req, res) => {
 });
 
 // Register new user
-router.post('/', createuser);
-// Get member by ID
+router.post('/', createUser);
+// Get user by ID
 router.get('/:id', getUserById);
+// Get all users
 router.get('/', getAllUsers);
 // Update user
 router.put('/:id', updateUser);
